@@ -42,6 +42,7 @@ from telegram.ext import (
 	filters,
 )
 
+
 # Enable logging
 logging.basicConfig(
 	format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
@@ -49,10 +50,13 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 GENDER, PHOTO, LOCATION, BIO = range(4)
+
+# TOKEN = "we inserted token here manually"
+
 try:
 	with open('../../tg_key.json','r') as f:
 		json_tg_key = json.load(f)
-		TOKEN = json_tg_key['key']
+		TOKEN = json_tg_key['TOKEN']
 
 except Exception as e:
 	print(traceback.format_exc())
@@ -75,7 +79,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 		reply_markup=InlineKeyboardMarkup.from_button(
 			InlineKeyboardButton(
 				text="Click to connect wallet"),
-				web_app=WebAppInfo(url="https://app.uniswap.org/#/swap?exactField=input&exactAmount=0.8&inputCurrency=ETH&outputCurrency=0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9"),
+				web_app=WebAppInfo(url="https://telefi-staging.vercel.app"),
 			)
 		)
 		# Keyboard here
@@ -186,7 +190,7 @@ async def ask(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 			InlineKeyboardButton(
 				text="Connect wallet here!",
 				#web_app=WebAppInfo(url="https://app.uniswap.org/#/swap?exactField=input&exactAmount=0.8&inputCurrency=ETH&outputCurrency=0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9"),
-				web_app=WebAppInfo(url="https://example.walletconnect.org/"),
+				web_app=WebAppInfo(url="https://telefi-staging.vercel.app"),
 			)
 		),
 	)
@@ -214,11 +218,11 @@ async def connect(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 	receive_message(update)
 	"""Send a message with a button that opens a the web app."""
 	await update.message.reply_text(
-		"Please press the button below to choose a color via the WebApp.",
+		"Please press button below to connect wallet.",
 		reply_markup=ReplyKeyboardMarkup.from_button(
 			KeyboardButton(
 				text="Connect wallet here!",
-				web_app=WebAppInfo(url="https://python-telegram-bot.org/static/webappbot"),
+				web_app=WebAppInfo(url="https://telefi-staging.vercel.app"),
 			)
 		),
 	)
