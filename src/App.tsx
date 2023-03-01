@@ -10,7 +10,7 @@ export function App() {
     <>
       <h1 style={{textAlign: "center"}}>Telfi Payments</h1>
       
-      <div> 
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}}> 
       <Web3Button />
       </div>
 
@@ -18,3 +18,5 @@ export function App() {
     </>
   )
 }
+
+

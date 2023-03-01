@@ -9,6 +9,8 @@ import { chains, client, walletConnectProjectId } from './wagmi'
 
 const ethereumClient = new EthereumClient(client, chains)
 
+document.body.style.backgroundColor = "#98B4D4"
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <WagmiConfig client={client}>

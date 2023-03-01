@@ -6,8 +6,11 @@ export function Account() {
 
   return (
     <div>
+      <p>
       {ensName ?? address}
       {ensName ? ` (${address})` : null}
+       is now Connected 🟢.  Please return to Telegram!
+      </p>
     </div>
   )
 }
