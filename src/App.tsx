@@ -8,9 +8,11 @@ export function App() {
 
   return (
     <>
-      <h1>wagmi + Web3Modal + Vite</h1>
-
+      <h1 style={{textAlign: "center"}}>Telfi Payments</h1>
+      
+      <div> 
       <Web3Button />
+      </div>
 
       {isConnected && <Account />}
     </>
