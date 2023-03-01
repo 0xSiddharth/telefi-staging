@@ -5,7 +5,11 @@ import { Account } from './components'
 import { useAccount, useConnect, useDisconnect } from 'wagmi'
 import { SendTransaction } from './components/SendTransaction'
 import { Helmet } from 'react-helmet'
-
+declare global {
+  interface Window {
+    Telegram: any;
+  }
+}
 export function App() {
   const { isConnected } = useAccount()
   const Telegram = window.Telegram.WebApp;
