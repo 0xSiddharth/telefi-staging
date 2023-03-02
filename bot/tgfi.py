@@ -18,6 +18,7 @@ import os
 import json
 import logging
 import sys
+import traceback
 
 from telegram import __version__ as TG_VER
 
@@ -56,7 +57,7 @@ GENDER, PHOTO, LOCATION, BIO = range(4)
 try:
 	with open('../../tg_key.json','r') as f:
 		json_tg_key = json.load(f)
-		TOKEN = json_tg_key['TOKEN']
+		TOKEN = json_tg_key['key']
 
 except Exception as e:
 	print(traceback.format_exc())
