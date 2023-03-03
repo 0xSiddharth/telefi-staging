@@ -23,16 +23,33 @@ declare global {
     Telegram: any;
   }
 }
+
+// check to see if the requester wallet is provided 
+const RequestWallet = false
+
 export function App() {
   const { isConnected } = useAccount()
   const Telegram = window.Telegram.WebApp;
  
-  if (isConnected) {
+  // show either page for fullfilling a payment or sending a message request 
+  if (isConnected && RequestWallet) {
     return (
       <div>
+          <Helmet>
+            <script src="https://telegram.org/js/telegram-web-app.js" type="text/javascript"/>
+           </Helmet>
+        {/* Transaction content goes here */}
+        <SendTransaction />
+      </div>
+    )
+  } else if (isConnected) {
+    return (
+      <div>
+          <Helmet>
+           <script src="https://telegram.org/js/telegram-web-app.js" type="text/javascript"/>
+          </Helmet>
         {/* Account content goes here */}
         <Account />
-        <SendTransaction />
       </div>
     )
   }
