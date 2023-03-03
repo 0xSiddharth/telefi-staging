@@ -181,6 +181,7 @@ export const Blur = (props: IconProps) => {
   );
 };
 
+// should we add window.close(); ? or window.location.href = "tg:resolve"; after get paid button press
 
   // return (
   //   <div>

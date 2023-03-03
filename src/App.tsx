@@ -25,7 +25,7 @@ declare global {
 }
 
 // check to see if the requester wallet is provided 
-const RequestWallet = false
+const RequestWallet = true
 
 export function App() {
   const { isConnected } = useAccount()
