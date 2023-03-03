@@ -63,7 +63,7 @@ export function SendTransaction() {
     </form>
     
     <div>
-    <button onClick={(e) => {disconnect}}>Disconnect</button>
+    <button onClick={(e) => {disconnect()}}>Disconnect</button>
     </div>
     
   </div>
