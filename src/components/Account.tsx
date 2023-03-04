@@ -71,7 +71,7 @@ export function Account() {
               as={'span'}
               bgGradient="linear(to-r, red.400,pink.400)"
               bgClip="text">
-              Fi
+              Pay
             </Text>{' '}
             : Web3 Payments
           </Heading>

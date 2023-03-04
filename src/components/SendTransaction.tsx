@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { useState } from 'react';
 import { useDebounce } from 'use-debounce'
 import {
   usePrepareSendTransaction,
@@ -33,9 +33,9 @@ import {
   Icon,
 } from '@chakra-ui/react';
 
-let senderAddress = '0x12345670'
-let recipientAddress = '0x987654'
-let sendValue = '10'
+let senderAddress = '0xC3FC2cC59B5CFA56B884ec3aD0096e6BF63EBEA8'
+let recipientAddress = '0xA7029446B46DD0Aa2F6C6F6d2d10D107f77A4BF6'
+let sendValue = '0.0000000001'
 let currency = 'USDC'
 
 
@@ -55,7 +55,9 @@ export const SendTransaction = () => {
   })
   const { data, sendTransaction } = useSendTransaction(config)
 
-  const { buttonLoading, isSuccess } = useWaitForTransaction({
+  const [loading, setLoading] = useState(false);
+
+  const {isSuccess } = useWaitForTransaction({
     hash: data?.hash,
   })
 
@@ -80,7 +82,7 @@ export const SendTransaction = () => {
               as={'span'}
               bgGradient="linear(to-r, red.400,pink.400)"
               bgClip="text">
-              Fi
+              Pay
             </Text>{' '}
             : Web3 Payments
           </Heading>
@@ -133,16 +135,17 @@ export const SendTransaction = () => {
             Disconnect
           </Button>
           <Button
-          isLoading = {buttonLoading}
           onClick={(e) => {
             e.preventDefault()
             sendTransaction?.()
+            setLoading(true);
           }}
+            isLoading={loading}
             bg={'green.400'}
             color={'white'}
             w="full"
             _hover={{
-              bg: 'blue.500',
+              bg: 'green.500',
             }}>
             Submit
           </Button>
