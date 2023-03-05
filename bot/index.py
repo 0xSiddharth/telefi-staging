@@ -101,7 +101,7 @@ START, ASK, ASKHANDLE, CONNECT, WAIT = range(5)
 db = {}
 prev_users = {} 
 chats = {}
-
+addresses = {}
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 
@@ -111,29 +111,20 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 	# Code some logic to check if the user has to recieve, check if it's screen name instead
 
 	if update.message.chat.username.lower() in db:
+		print("https://telefi-staging.vercel.app?send=1&toaddr=%s&amount=%s" % (addresses[db[update.message.chat.username.lower()]], str(db[db[update.message.chat.username.lower()]]).replace('.','_')))
 		await update.message.reply_text(
 			"@ has requested you pay $%s!" % (db[update.message.chat.username.lower()]),
 			reply_markup=ReplyKeyboardMarkup.from_button(
 				KeyboardButton(
 					text="Click to pay!",
 					#web_app=WebAppInfo(url="https://app.uniswap.org/#/swap?exactField=input&exactAmount=0.8&inputCurrency=ETH&outputCurrency=0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9"),
-					web_app=WebAppInfo(url="https://telefi-staging.vercel.app"),
-				)
+					web_app=WebAppInfo(url="https://telefi-staging.vercel.app?send=1&toaddr=%s&amount=%s" % (addresses[db[update.message.chat.username.lower()]], str(db[db[update.message.chat.username.lower()]]).replace('.','_'))),
+					)
+				
 			),
 		)
 
-		"""
-		await update.message.reply_text(
-		"@ has requested you pay $%s!" % (db[update.message.chat.username.lower()]),
-		reply_markup=ReplyKeyboardMarkup.from_button(
-			KeyboardButton(
-				text="Click to connect wallet"),
-				web_app=WebAppInfo(url="https://telefi-staging.vercel.app"),
-			)
-		)
-		"""
-		# Keyboard here
-		return EXIT
+		return WAIT
 
 	await update.message.reply_text("Type $ amount for payment")
 	return START
@@ -155,18 +146,7 @@ async def ask(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 	if num:
 		await update.message.reply_text("$%s Received\n\nType user handle @ to request money from" % update.message.text)
 		db[update.message.chat.username.lower()] = num
-		"""
-		await update.message.reply_text(
-			"Link wallet to receive payments 1",
-			reply_markup=ReplyKeyboardMarkup.from_button(
-				KeyboardButton(
-					text="Connect wallet here!",
-					#web_app=WebAppInfo(url="https://app.uniswap.org/#/swap?exactField=input&exactAmount=0.8&inputCurrency=ETH&outputCurrency=0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9"),
-					web_app=WebAppInfo(url="https://telefi-staging.vercel.app"),
-				)
-			),
-		)
-		"""
+
 		return ASKHANDLE
 	else:
 		await update.message.reply_text("`%s` is not a valid number" % update.message.text)
@@ -194,7 +174,6 @@ async def wait(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 async def handle(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 	receive_message(update)
-	#await update.message.reply_text("Send user handle to request payment from")
 	try:
 		user_handle = strip_url(update.message.text)
 		db[user_handle.lower()] = update.message.chat.username.lower()
@@ -203,7 +182,7 @@ async def handle(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 	except Exception as e:
 		print(e)
 	await update.message.reply_text(
-			"Link wallet to receive payments 2",
+			"Link wallet to receive payments",
 			reply_markup=ReplyKeyboardMarkup.from_button(
 				KeyboardButton(
 					text="Connect wallet here!",
@@ -230,8 +209,9 @@ async def connect(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 	"""Send a message with a button that opens a the web app."""
 
 	data = json.loads(update.effective_message.web_app_data.data)
-
 	data = data['hi']
+	addresses[update.message.chat.username.lower()] = data
+	
 
 	await update.message.reply_html(
 		text= "<a href='https://t.me/share/url?url=@tele_fi_bot&text=You%%20owe%%20@%s%%20%.2f%%20click%%20the%%20link%%20above%%20to%%20send'>Click this link</a> to share with @%s" % (update.message.chat.username, db[update.message.chat.username.lower()], prev_users[update.message.chat.username.lower()]),
@@ -286,6 +266,7 @@ def receive_message(update):
 	logger.info(update)
 	logger.info('\n\n')
 	logger.info(str(db))
+	logger.info(str(addresses))
 
 	# Getting data from keyboard or message
 	if update.callback_query:
