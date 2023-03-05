@@ -31,12 +31,13 @@ import {
   useBreakpointValue,
   IconProps,
   Icon,
+  Link,
 } from '@chakra-ui/react';
 
-let senderAddress = '0xC3FC2cC59B5CFA56B884ec3aD0096e6BF63EBEA8'
-let recipientAddress = '0xA7029446B46DD0Aa2F6C6F6d2d10D107f77A4BF6'
+let senderAddress = '0xA7029446B46DD0Aa2F6C6F6d2d10D107f77A4BF6'
+let recipientAddress = '0xC3FC2cC59B5CFA56B884ec3aD0096e6BF63EBEA8'
 let sendValue = '0.0000000001'
-let currency = 'USDC'
+let currency = 'ETH'
 
 
 export const SendTransaction = () => {
@@ -57,8 +58,12 @@ export const SendTransaction = () => {
 
   const [loading, setLoading] = useState(false);
 
-  const {isSuccess } = useWaitForTransaction({
+  const {isSuccess, isError } = useWaitForTransaction({
     hash: data?.hash,
+    onSuccess(data) {
+      setLoading(false)
+      console.log('Success', data)
+    },
   })
 
   const { disconnect } = useDisconnect()
@@ -153,8 +158,13 @@ export const SendTransaction = () => {
             <div>
               Successfully sent {sendValue} ether to {senderAddress}
               <div>
-                <a href={`https://etherscan.io/tx/${data?.hash}`}>Etherscan</a>
+                <Link color='teal.500' href={`https://etherscan.io/tx/${data?.hash}`}>Etherscan</Link>
               </div>
+            </div>
+          )}
+          {isError && (
+            <div>
+              ERROR sending ether to {senderAddress}
             </div>
           )}
         </Stack>
