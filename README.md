@@ -12,8 +12,8 @@ As a payment requester,
 As a payment sender,
 
 1. Get notified of a payment request.
-2. Taps on payment request and opens @TelePay Bot on TG
-3. Connects wallet, reviews terms and signs transaction
+2. Tap on payment request and open @TelePay Bot on TG
+3. Connect wallet, reviews terms and sign transaction
 
 # Learn more
 
