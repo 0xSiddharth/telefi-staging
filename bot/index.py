@@ -50,6 +50,7 @@ import json
 import logging
 import sys
 import traceback
+import requests
 
 from telegram import __version__ as TG_VER
 
@@ -211,7 +212,6 @@ async def connect(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 	data = json.loads(update.effective_message.web_app_data.data)
 	data = data['hi']
 	addresses[update.message.chat.username.lower()] = data
-	
 
 	await update.message.reply_html(
 		text= "<a href='https://t.me/share/url?url=@tele_fi_bot&text=You%%20owe%%20@%s%%20%.2f%%20click%%20the%%20link%%20above%%20to%%20send'>Click this link</a> to share with @%s" % (update.message.chat.username, db[update.message.chat.username.lower()], prev_users[update.message.chat.username.lower()]),
@@ -249,6 +249,75 @@ async def connect(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 	return ASK
 
+
+async def balance_check(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+	receive_message(update)
+	balance_dict = getBalances(addresses[update.message.chat.username.lower()])
+
+	# Create the message
+	message_start = '<b>Wallet Balance:</b> \n<code>'
+	message = ''
+	total = 0
+	counter = 0
+	for coin, dollars in sorted(balance_dict.items(), key=lambda x: x[1], reverse=True):
+		if dollars is not None:
+			dollar_amount = curr_str(user, convert_curr(user, dollars))
+			total += dollars
+			message += '\n%s:%s%s' % (coin, ' ' * (9-len(coin)), dollar_amount)
+		counter += 1
+		if counter >= 10:
+			break
+
+	message_start += '\nTotal:    %s\n' % curr_str(user, convert_curr(user, total))
+	message += '</code>'
+
+	await update.message.reply_text(message)
+
+	return WAIT
+
+def getCovalentDataForChains(address):
+    data = {}
+    url = f'https://api.covalenthq.com/v1/eth-mainnet/address/{address}/balances_v2/?&key=ckey_9cda6824fa45468f808ca8c0c0e'
+    response = requests.get(url)
+    items = response.json()['data']['items']
+    return items
+
+def getBalances(address):
+    data = getCovalentDataForChains(address)
+    token_balances = {}
+    for row in data:
+        token_balances[row['contract_ticker_symbol']] = row['quote']
+        
+    return token_balances
+
+# def getEthPrice(address):
+#     data = getCovalentDataForChains(address)
+#     eth_price = [i for i in data if i['contract_address'] == '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee']
+#     return eth_price[0]['quote_rate']
+
+
+def getRecentTransactions(address):
+    url = f"https://api.covalenthq.com/v1/eth-mainnet/address/{address}/transactions_v3/"
+    headers = {
+        "accept": "application/json",
+        "x-api-key": "demo"
+    }
+    response = requests.get(url, headers=headers)
+    items = response.json()['data']
+    return 
+
+    
+def getEthPrice():
+
+    url = 'https://min-api.cryptocompare.com/data/pricemultifull'
+    params = {'fsyms': 'ETH', 'tsyms': 'USD'}
+    headers = {'accept': 'application/json'}
+
+    response = requests.get(url, params=params, headers=headers)
+    items = response.json()
+    
+    return items['RAW']['ETH']['USD']['PRICE']
+    	
 # Handle incoming WebAppData
 async def web_app_data(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 	"""Print the received data and remove the button."""
@@ -296,11 +365,13 @@ def main() -> None:
 		entry_points=[CommandHandler("start", start)],
 		states={
 			START: [MessageHandler(filters.ALL, ask)],
-			ASKHANDLE: [MessageHandler(filters.ALL, handle)],
-			CONNECT: [MessageHandler(filters.ALL, connect)],
-			ASK: [MessageHandler(filters.ALL, wait)],
+			ASKHANDLE: [MessageHandler(~filters.COMMAND, handle)],
+			CONNECT: [MessageHandler(~filters.COMMAND, connect)],
+			ASK: [MessageHandler(~filters.COMMAND, wait)],
 		},
-		fallbacks=[CommandHandler("cancel", cancel)],
+		fallbacks=[
+			CommandHandler("cancel", cancel),
+			CommandHandler("balance_check", balance_check)],
 	)
 
 	application.add_handler(conv_handler)
