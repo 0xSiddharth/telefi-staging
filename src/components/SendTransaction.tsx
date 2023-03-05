@@ -44,7 +44,7 @@ export const SendTransaction = () => {
 
   let recipientAddress = params.get('toaddr');
   let sendValue = params.get('amount')
-  let senderAddress = 'sd'
+  let senderAddress = 'sd' // HITEN TO EDIT
 
   console.log(recipientAddress, sendValue);
 
