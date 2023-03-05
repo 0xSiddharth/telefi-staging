@@ -304,7 +304,7 @@ def getRecentTransactions(address):
     }
     response = requests.get(url, headers=headers)
     items = response.json()['data']
-    return 
+    return items[0]
 
     
 def getEthPrice():
@@ -372,6 +372,7 @@ def main() -> None:
 		fallbacks=[
 			CommandHandler("cancel", cancel),
 			CommandHandler("balance_check", balance_check)],
+			CommandHandler("recent_transaction", getRecentTransactions)],
 	)
 
 	application.add_handler(conv_handler)
