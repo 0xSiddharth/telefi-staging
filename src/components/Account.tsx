@@ -37,7 +37,10 @@ export function Account() {
   // const { address } = useAccount()
   // const { data: ensName } = useEnsName({ address })
   const Telegram = window.Telegram.WebApp;
-  const shortaddress = truncateEthAddress(address)
+  let shortaddress = ''
+  if (address !== undefined){
+    shortaddress = truncateEthAddress(address)
+  }
   
   // useEffect(() => {
   //     if (address !== undefined){
@@ -90,7 +93,7 @@ export function Account() {
         <Avatar
           size={'xl'}
           src={ensAvatar}
-          alt={'ENS Avatar'}
+          // alt={'ENS Avatar'}
           mb={4}
           pos={'relative'}
           _after={{

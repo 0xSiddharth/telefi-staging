@@ -46,18 +46,30 @@ export const SendTransaction = () => {
   const { address } = useAccount()
 
   let recipientAddress = params.get('toaddr');
+  if (typeof recipientAddress !== 'string'){
+    recipientAddress = ''
+  }
+
   let sendValue = params.get('amount')
+  if (typeof sendValue !== 'string'){
+    sendValue = ''
+  }
   let senderAddress = address
 
   console.log(recipientAddress, sendValue);
 
   let currency = 'ETH'
+  
+  let [debouncedTo] = useDebounce(recipientAddress, 500)
 
-  // const [to, setTo] = React.useState('')
-  const [debouncedTo] = useDebounce(recipientAddress, 500)
- 
-  // const [amount, setAmount] = React.useState('')
+
+
   const [debouncedAmount] = useDebounce(sendValue, 500)
+
+  if (typeof debouncedTo !== "string"){
+    debouncedTo = ''
+  }
+
  
   const { config } = usePrepareSendTransaction({
     request: {

@@ -51,7 +51,7 @@ export function App() {
   let RequestWallet = true;
   if (url.includes('send')) {
     const RequestWallet = false
-    console.log('SENDING true')
+    console.log('Sending true')
   }
 
    
