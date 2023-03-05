@@ -1,16 +1,15 @@
-This is a [wagmi](https://wagmi.sh) + [Web3Modal](https://web3modal.com/) + [Vite](https://vitejs.dev/) project bootstrapped with [`create-wagmi`](https://github.com/wagmi-dev/wagmi/tree/main/packages/create-wagmi)
+TelePay: Web3 Payments
 
 # TelePay
 
-Run `npm run dev` in your terminal, and then open [localhost:5173](http://localhost:5173) in your browser.
-
-Once the webpage has loaded, changes made to files inside the `src/` directory (e.g. `src/App.tsx`) will automatically update the webpage.
+Add the @TeleiPay Bot on TG
+Connect your Wallet
+Share payment request to your Friend
+----
+Friend taps on payment request
+Opens @TelePay Bot on TG
+Connects Wallet and Signs Transaction
 
 # Learn more
 
-To learn more about [Vite](https://vitejs.dev/) or [wagmi](https://wagmi.sh), check out the following resources:
-
-- [wagmi Documentation](https://wagmi.sh) – learn about wagmi Hooks and API.
-- [wagmi Examples](https://wagmi.sh/examples/connect-wallet) – a suite of simple examples using wagmi.
-- [Web3Modal Documentation](https://web3modal.com) – learn more about Web3Modal (configuration, theming, advanced usage, etc).
-- [Vite Documentation](https://vitejs.dev/) – learn about Vite features and API.
+Get Help: telepay.xyz

@@ -8,15 +8,21 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.5.1",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
     "@types/react-helmet": "^6.1.6",
     "@web3modal/ethereum": "2.0.0-beta.6",
     "@web3modal/react": "2.0.0-beta.6",
     "buffer": "^6.0.3",
     "ethers": "^5.7.2",
+    "framer-motion": "^10.0.1",
     "process": "^0.11.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
+    "react-router-dom": "^6.8.2",
+    "truncate-eth-address": "^1.0.2",
     "use-debounce": "^9.0.3",
     "util": "^0.12.4",
     "wagmi": "~0.11.0"
