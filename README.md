@@ -1,6 +1,6 @@
 This is a [wagmi](https://wagmi.sh) + [Web3Modal](https://web3modal.com/) + [Vite](https://vitejs.dev/) project bootstrapped with [`create-wagmi`](https://github.com/wagmi-dev/wagmi/tree/main/packages/create-wagmi)
 
-# Getting Started
+# TelePay
 
 Run `npm run dev` in your terminal, and then open [localhost:5173](http://localhost:5173) in your browser.
 
