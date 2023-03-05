@@ -30,12 +30,19 @@ import truncateEthAddress from 'truncate-eth-address'
 
 export function Account() {
   const { address, connector, isConnected } = useAccount()
-  const { data: ensAvatar } = useEnsAvatar({ address })
+  let { data: ensAvatar } = useEnsAvatar({ address })
   const { data: ensName } = useEnsName({ address })
   const { connect, connectors, error, isLoading, pendingConnector } = useConnect()
   const { disconnect } = useDisconnect()
   // const { address } = useAccount()
   // const { data: ensName } = useEnsName({ address })
+
+  if (typeof ensAvatar !== 'string') {
+    ensAvatar = ''
+
+  }
+
+
   const Telegram = window.Telegram.WebApp;
   let shortaddress = ''
   if (address !== undefined){
@@ -93,7 +100,7 @@ export function Account() {
         <Avatar
           size={'xl'}
           src={ensAvatar}
-          // alt={'ENS Avatar'}
+          alt={'ENS Avatar'}
           mb={4}
           pos={'relative'}
           _after={{
