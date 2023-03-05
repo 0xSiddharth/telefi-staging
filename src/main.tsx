@@ -15,7 +15,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ChakraProvider>
       <WagmiConfig client={client}>
-        <App />
+        <App/>
         <Web3Modal
           projectId={walletConnectProjectId}
           ethereumClient={ethereumClient}

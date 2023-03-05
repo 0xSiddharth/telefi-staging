@@ -18,19 +18,43 @@ import { Account } from './components'
 import { useAccount, useConnect, useDisconnect } from 'wagmi'
 import { SendTransaction } from './components/SendTransaction'
 import { Helmet } from 'react-helmet'
+// import { useLocation, Router } from 'react-router-dom';
+// import {
+//   Switch,
+//   Route,
+//   BrowserRouter as Router,
+//   // Redirect,
+// } from 'react-router-dom'
+
 declare global {
   interface Window {
     Telegram: any;
   }
 }
 
+// function MyComponent() {
+//   const location = useLocation();
+//   const pathname = location.pathname;
+
+//   // rest of the component code
+// }
 // check to see if the requester wallet is provided 
-const RequestWallet = true
 
 export function App() {
+  
   const { isConnected } = useAccount()
   const Telegram = window.Telegram.WebApp;
- 
+  
+  const url = window.location.href;
+  console.log(url)
+
+  let RequestWallet = true;
+  if (url.includes('/send')) {
+    const RequestWallet = false
+    console.log('SENDING true')
+  }
+
+   
   // show either page for fullfilling a payment or sending a message request 
   if (isConnected && RequestWallet) {
     return (

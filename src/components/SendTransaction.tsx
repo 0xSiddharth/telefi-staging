@@ -34,13 +34,30 @@ import {
   Link,
 } from '@chakra-ui/react';
 
-let senderAddress = '0xA7029446B46DD0Aa2F6C6F6d2d10D107f77A4BF6'
-let recipientAddress = '0xC3FC2cC59B5CFA56B884ec3aD0096e6BF63EBEA8'
-let sendValue = '0.0000000001'
-let currency = 'ETH'
 
 
 export const SendTransaction = () => {
+  const url = new URL(window.location.href);
+  console.log(url)
+  // const url = new URL('http://localhost:5173/send?toaddr=0x89d9Dd2e85ecC305E276f51BB21fd4C708Be9487&fromaddr=0xe83fa30A48CC2E00BD1F7b6a9a6C34741F1dF688&amount=1000');
+
+  const params = new URLSearchParams(url.search);
+
+  let senderAddress = params.get('toaddr');
+  let recipientAddress = params.get('fromaddr');
+  // let amount = params.get('amount')
+  let sendValue = params.get('amount')
+  // let sendValue = 
+  // if (amount) {
+  //   sendValue = parseInt(amount)/100;
+  // }
+
+  console.log(senderAddress, recipientAddress, sendValue);
+  
+  // let senderAddress = '0xA7029446B46DD0Aa2F6C6F6d2d10D107f77A4BF6'
+  // let recipientAddress = '0xC3FC2cC59B5CFA56B884ec3aD0096e6BF63EBEA8'
+  // let sendValue = '0.0000000001'
+  let currency = 'USDC'
 
   // const [to, setTo] = React.useState('')
   const [debouncedTo] = useDebounce(recipientAddress, 500)
