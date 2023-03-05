@@ -49,7 +49,7 @@ export function App() {
   console.log(url)
 
   let RequestWallet = true;
-  if (url.includes('/send')) {
+  if (url.includes('send')) {
     const RequestWallet = false
     console.log('SENDING true')
   }
