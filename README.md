@@ -6,10 +6,9 @@ TelePay: Bringing seamless Web3 Payments straight to telegram.
 2. Connect your Wallet
 3. Share payment request to your Friend
 ----
-Friend gets notified of a payment request
-Friend taps on payment request
-Opens @TelePay Bot on TG
-Connects Wallet and Signs Transaction
+Friend gets notified of a payment request.
+Friend taps on payment request and Opens @TelePay Bot on TG
+Friend connects wallet, reviews terms and signs transaction
 
 # Learn more
 
