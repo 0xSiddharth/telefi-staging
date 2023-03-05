@@ -100,7 +100,7 @@ export function Account() {
         <Avatar
           size={'xl'}
           src={ensAvatar}
-          alt={'ENS Avatar'}
+          // alt={'ENS Avatar'}
           mb={4}
           pos={'relative'}
           _after={{
