@@ -117,9 +117,9 @@ export function Account() {
         <Heading fontSize={'2xl'} fontFamily={'body'}>
         {ensName ? ensName : shortaddress}
         </Heading>
-        <Text fontWeight={600} color={'gray.500'} mb={4}>
+        {/* <Text fontWeight={600} color={'gray.500'} mb={4}>
           {`@${address}`}
-        </Text>
+        </Text> */}
         <Text
           textAlign={'center'}
           color={useColorModeValue('gray.700', 'gray.400')}
