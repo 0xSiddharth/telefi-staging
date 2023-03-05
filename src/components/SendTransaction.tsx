@@ -5,6 +5,7 @@ import {
   useSendTransaction,
   useWaitForTransaction,
   useDisconnect,
+  useAccount,
 } from 'wagmi'
 import { utils } from 'ethers'
 
@@ -42,9 +43,11 @@ export const SendTransaction = () => {
 
   const params = new URLSearchParams(url.search);
 
+  const { address } = useAccount()
+
   let recipientAddress = params.get('toaddr');
   let sendValue = params.get('amount')
-  let senderAddress = 'sd' // HITEN TO EDIT
+  let senderAddress = address
 
   console.log(recipientAddress, sendValue);
 
