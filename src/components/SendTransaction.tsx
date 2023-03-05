@@ -51,19 +51,19 @@ export const SendTransaction = () => {
   }
 
   let sendValue = params.get('amount')
+  console.log(sendValue)
   if (sendValue !== null){
+    console.log(sendValue)
     if (sendValue.includes('_')){
-      sendValue.replace(/_/g, '.')
-
+      console.log(sendValue)
+      sendValue = sendValue.replace(/_/g, '.')
     }
   }
-
+  
   if (typeof sendValue !== 'string'){
+    console.log(sendValue)
     sendValue = '1'
   }
-
-  // let sendValueFloat = parseFloat(sendValue.replace(/-/g, '.'));
-  // console.log(num); // Output: 10.2030
 
   let senderAddress = address
 
