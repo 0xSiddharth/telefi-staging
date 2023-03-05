@@ -64,7 +64,7 @@ export const SendTransaction = () => {
 
   let senderAddress = address
 
-  console.log(recipientAddress, sendValueFloat);
+  console.log(recipientAddress, sendValue);
 
   let currency = 'ETH'
   
@@ -79,8 +79,7 @@ export const SendTransaction = () => {
   const { config } = usePrepareSendTransaction({
     request: {
       to: debouncedTo,
-      value: sendValueFloat
-      // value: debouncedAmount ? utils.parseEther(debouncedAmount) : undefined,
+      value: debouncedAmount ? utils.parseEther(debouncedAmount) : undefined,
     },
   })
   const { data, sendTransaction } = useSendTransaction(config)
