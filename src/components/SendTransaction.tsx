@@ -52,7 +52,10 @@ export const SendTransaction = () => {
 
   let sendValue = params.get('amount')
   if (sendValue !== null){
-    sendValue.replace(/-/g, '.')
+    if (sendValue.includes('-')){
+      sendValue.replace(/-/g, '.')
+
+    }
   }
 
   if (typeof sendValue !== 'string'){
