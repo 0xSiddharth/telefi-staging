@@ -48,9 +48,9 @@ export function App() {
   const url = window.location.href;
   console.log(url)
 
-  let RequestWallet = true
+  var RequestWallet = false
   if (url.includes('send')) {
-    RequestWallet = false
+    RequestWallet = true
     console.log('Sending true')
   }
 
