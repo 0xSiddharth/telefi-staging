@@ -39,7 +39,6 @@ export function Account() {
 
   if (typeof ensAvatar !== 'string') {
     ensAvatar = ''
-
   }
 
 

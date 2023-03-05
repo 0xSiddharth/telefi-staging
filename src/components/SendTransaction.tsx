@@ -52,18 +52,19 @@ export const SendTransaction = () => {
 
   let sendValue = params.get('amount')
   if (typeof sendValue !== 'string'){
-    sendValue = ''
+    sendValue = '1'
   }
+
+  let sendValueFloat = parseFloat(sendValue.replace(/-/g, '.'));
+  // console.log(num); // Output: 10.2030
+
   let senderAddress = address
 
-  console.log(recipientAddress, sendValue);
+  console.log(recipientAddress, sendValueFloat);
 
   let currency = 'ETH'
   
   let [debouncedTo] = useDebounce(recipientAddress, 500)
-
-
-
   const [debouncedAmount] = useDebounce(sendValue, 500)
 
   if (typeof debouncedTo !== "string"){
@@ -74,7 +75,8 @@ export const SendTransaction = () => {
   const { config } = usePrepareSendTransaction({
     request: {
       to: debouncedTo,
-      value: debouncedAmount ? utils.parseEther(debouncedAmount) : undefined,
+      value: sendValueFloat
+      // value: debouncedAmount ? utils.parseEther(debouncedAmount) : undefined,
     },
   })
   const { data, sendTransaction } = useSendTransaction(config)
